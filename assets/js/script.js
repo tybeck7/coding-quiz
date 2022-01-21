@@ -35,7 +35,7 @@ function showQuestion(question){
         if (answer.correct){
             button.dataset.correct = answer.correct
         }
-        button.addEventListener("click", selectAnswer)
+        button.addEventListener("click", selectAnswer) 
         answerButtonsElement.appendChild(button)
     })
 }
@@ -92,8 +92,8 @@ const questions = [
         answers: [
             {text: "10", correct: false},
             {text: "50", correct: false},
-            {text: "35", correct: true},
-            {text: "20", correct: false},           
+            {text: "35", correct: false},
+            {text: "20", correct: true},           
         ]
     },
     {
@@ -104,5 +104,15 @@ const questions = [
             {text: "Horizon Text Mark-up Language", correct: false},
             {text: "Hyper Text Mark-up Laptop", correct: false},
         ]
-    }
+    },  
+    {
+        question: "What does CSS stand for?",
+        answers: [
+            {text: "Centralized Sizing System", correct: false},
+            {text: "Cascading Style System", correct: false},
+            {text: "Centralized Sheet System", correct: false},
+            {text: "Cascading Style Sheet", correct: true},
+        ]
+    },
+  
 ]

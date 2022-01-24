@@ -3,6 +3,7 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btn")
+const scoreCount = document.getElementById("score")
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -19,7 +20,25 @@ function startQuiz(){
     currentQuestionIndex = 0
     questionContainerElement.classList.remove("hide");
     setNextQuestion()
+    window.timer = 60
+
+    window.clockTick = setInterval(function() {
+        // update timer
+        window.timer--;
+        document.querySelector(".score-count").innerHTML = window.timer
+        // check if user ran out of timer
+        if (window.timer <= 0) {
+            clearInterval(clockTick)
+        }
+        if (window.timer == 0) {
+            clearInterval(clockTick)
+            var userInitials = prompt("Enter Your Initials")
+            localStorage.setItem (userInitials, userInitials + ' : ' + window.timer)
+            window.location = "high-scores.html"
+        }
+      }, 1000)
 }
+
 
 function setNextQuestion(){
     resetState()
@@ -58,8 +77,12 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex +1) {
         nextButton.classList.remove("hide")
     } else {
-        startButton.innerText = "restart"
-        startButton.classList.remove("hide")
+        startButton.innerText = "finish"
+        clearInterval(window.clockTick)
+        var userInitials = prompt("Enter Your Initials")
+        localStorage.setItem (userInitials, userInitials + ' : ' + window.timer)
+        window.location = "high-scores.html"
+    startButton.classList.remove("hide")
     }
 }
 
@@ -70,7 +93,9 @@ function setStatusClass(element, correct) {
     }
     else {
         element.classList.add("wrong")
+        window.timer -= 10
     }
+    
 }
 
 function clearStatusClass(element) {
@@ -116,3 +141,7 @@ const questions = [
     },
   
 ]
+
+function endQuiz() {
+
+}
